@@ -37,8 +37,8 @@ export async function register({settingsManager, peertubeHelpers, transcodingMan
 
     logger.info("Registering peertube-plugin-hardware-encode");
 
-    const encoder = 'h264_vaapi'
-    const profileName = 'vaapi'
+    const encoder = 'h264_rkmpp'
+    const profileName = 'rkmpp'
 
     // Add trasncoding profiles
     transcodingManager.addVODProfile(encoder, profileName, vodBuilder)
@@ -153,13 +153,9 @@ function printResolution(resolution : VideoResolution) : string {
 function buildInitOptions() {
     if (pluginSettings.hardwareDecode) {
         return [
-            '-hwaccel vaapi',
-            '-vaapi_device /dev/dri/renderD128',
-            '-hwaccel_output_format vaapi',
-        ]
-    } else {
-        return [
-            '-vaapi_device /dev/dri/renderD128'
+            '-hwaccel rkmpp',
+            '-hwaccel_output_format drm_prime',
+            '-afbc rga'
         ]
     }
 }
@@ -183,7 +179,7 @@ async function vodBuilder(params: EncoderOptionsBuilderParams) : Promise<Encoder
     let options : EncoderOptions = {
         scaleFilter: {
             // software decode requires specifying pixel format for hardware filter and upload it to GPU
-            name: pluginSettings.hardwareDecode ? 'scale_vaapi' : 'format=nv12,hwupload,scale_vaapi'
+            name: pluginSettings.hardwareDecode ? 'scale_rkrga' : 'scale_rkrga,format=nv12,afbc=1'
         },
         inputOptions: shouldInitVaapi ? buildInitOptions() : [],
         outputOptions: [
@@ -216,7 +212,7 @@ async function liveBuilder(params: EncoderOptionsBuilderParams) : Promise<Encode
     // You can also return a promise
     const options = {
       scaleFilter: {
-        name: pluginSettings.hardwareDecode ? 'scale_vaapi' : 'format=nv12,hwupload,scale_vaapi'
+        name: pluginSettings.hardwareDecode ? 'scale_rkrga' : 'scale_rkrga,format=nv12,afbc=1'
       },
       inputOptions: shouldInitVaapi ? buildInitOptions() : [],
       outputOptions: [
