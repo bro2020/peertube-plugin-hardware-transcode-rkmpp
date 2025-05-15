@@ -1,8 +1,8 @@
 {
-    "name": "peertube-plugin-hardware-transcode-vaapi",
+    "name": "peertube-plugin-hardware-transcode-rkmpp",
     "version": "0.2.9",
     "license": "MIT",
-    "description": "Plugin that adds transcode profiles which use vaapi for hardware acceleration",
+    "description": "Plugin that adds transcode profiles which use rkmpp for hardware acceleration",
     "engine": {
         "peertube": ">=5.1.0"
     },
@@ -10,9 +10,9 @@
         "peertube",
         "plugin"
     ],
-    "homepage": "https://github.com/TheoLeCalvar/peertube-plugin-hardware-transcode-vaapi",
+    "homepage": "https://github.com/bro2020/peertube-plugin-hardware-transcode-rkmpp",
     "author": "gdsn",
-    "bugs": "https://github.com/TheoLeCalvar/peertube-plugin-hardware-transcode-vaapi",
+    "bugs": "https://github.com/bro2020/peertube-plugin-hardware-transcode-rkmpp",
     "library": "./dist/main.js",
     "files": [
         "/dist"
