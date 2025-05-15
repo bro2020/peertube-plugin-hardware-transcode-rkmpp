@@ -157,7 +157,7 @@ function buildInitOptions() {
             '-hwaccel_output_format drm_prime',
             '-afbc rga'
         ]
-    }, else {
+    } else {
         return []
     }
 }
