@@ -181,7 +181,7 @@ async function vodBuilder(params: EncoderOptionsBuilderParams) : Promise<Encoder
     let options : EncoderOptions = {
         scaleFilter: {
             // software decode requires specifying pixel format for hardware filter and upload it to GPU
-            name: pluginSettings.hardwareDecode ? 'scale_rkrga' : 'format=nv12,hwmap=mode=read,scale_rkrga'
+            name: pluginSettings.hardwareDecode ? 'scale_rkrga' : 'format=nv12,hwmap=mode=read'
         },
         inputOptions: shouldInitVaapi ? buildInitOptions() : [],
         outputOptions: [
@@ -214,7 +214,7 @@ async function liveBuilder(params: EncoderOptionsBuilderParams) : Promise<Encode
     // You can also return a promise
     const options = {
       scaleFilter: {
-        name: pluginSettings.hardwareDecode ? 'scale_rkrga' : 'format=nv12,hwmap=mode=read,scale_rkrga'
+        name: pluginSettings.hardwareDecode ? 'scale_rkrga' : 'format=nv12,hwmap=mode=read'
       },
       inputOptions: shouldInitVaapi ? buildInitOptions() : [],
       outputOptions: [
