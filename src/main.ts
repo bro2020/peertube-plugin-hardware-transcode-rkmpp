@@ -154,8 +154,7 @@ function buildInitOptions() {
     if (pluginSettings.hardwareDecode) {
         return [
             '-hwaccel rkmpp',
-            '-hwaccel_output_format drm_prime',
-            '-afbc rga'
+            '-hwaccel_output_format drm_prime'
         ]
     } else {
         return []
