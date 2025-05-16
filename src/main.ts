@@ -166,7 +166,7 @@ async function vodBuilder(params: EncoderOptionsBuilderParams) : Promise<Encoder
     const { resolution, fps, streamNum, inputBitrate } = params
     const streamSuffix = streamNum == undefined ? '' : `:${streamNum}`
     let targetBitrate = getTargetBitrate(resolution, fps)
-    let shouldInitVaapi = (streamNum == undefined || streamNum <= latestStreamNum)
+    let shouldInitRkmpp = (streamNum == undefined || streamNum <= latestStreamNum)
 
     if (targetBitrate > inputBitrate) {
         targetBitrate = inputBitrate
@@ -174,16 +174,16 @@ async function vodBuilder(params: EncoderOptionsBuilderParams) : Promise<Encoder
 
     logger.info(`Building encoder options, received ${JSON.stringify(params)}`)
     
-    if (shouldInitVaapi && streamNum != undefined) {
+    if (shouldInitRkmpp && streamNum != undefined) {
         latestStreamNum = streamNum
     }
     // You can also return a promise
     let options : EncoderOptions = {
         scaleFilter: {
             // software decode requires specifying pixel format for hardware filter and upload it to GPU
-            name: pluginSettings.hardwareDecode ? 'scale_rkrga' : 'scale_rkrga,format=nv12'
+            name: pluginSettings.hardwareDecode ? 'scale_rkrga' : 'format=nv12,scale_rkrga'
         },
-        inputOptions: shouldInitVaapi ? buildInitOptions() : [],
+        inputOptions: shouldInitRkmpp ? buildInitOptions() : [],
         outputOptions: [
             '-strict -2',
             `-quality ${pluginSettings.quality}`,
@@ -200,7 +200,7 @@ async function liveBuilder(params: EncoderOptionsBuilderParams) : Promise<Encode
     const { resolution, fps, streamNum, inputBitrate } = params
     const streamSuffix = streamNum == undefined ? '' : `:${streamNum}`
     let targetBitrate = getTargetBitrate(resolution, fps)
-    let shouldInitVaapi = (streamNum == undefined || streamNum <= latestStreamNum)
+    let shouldInitRkmpp = (streamNum == undefined || streamNum <= latestStreamNum)
 
     if (targetBitrate > inputBitrate) {
         targetBitrate = inputBitrate
@@ -208,16 +208,16 @@ async function liveBuilder(params: EncoderOptionsBuilderParams) : Promise<Encode
 
     logger.info(`Building encoder options, received ${JSON.stringify(params)}`)
 
-    if (shouldInitVaapi && streamNum != undefined) {
+    if (shouldInitRkmpp && streamNum != undefined) {
       latestStreamNum = streamNum
     }
 
     // You can also return a promise
     const options = {
       scaleFilter: {
-        name: pluginSettings.hardwareDecode ? 'scale_rkrga' : 'scale_rkrga,format=nv12'
+        name: pluginSettings.hardwareDecode ? 'scale_rkrga' : 'format=nv12,scale_rkrga'
       },
-      inputOptions: shouldInitVaapi ? buildInitOptions() : [],
+      inputOptions: shouldInitRkmpp ? buildInitOptions() : [],
       outputOptions: [
         '-strict -2',
         `-quality ${pluginSettings.quality}`,
