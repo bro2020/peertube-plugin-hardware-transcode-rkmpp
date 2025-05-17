@@ -12,9 +12,7 @@ For more information on rkmpp and hardware acceleration:
 # Building a compatible docker image
 
 Official docker images do not ship with required libraries for hardware transcode.
-You can build your own image with the following Dockerfile.rockchip from repo `bro2020/PeerTube`:
-
-[https://github.com/bro2020/PeerTube](https://github.com/bro2020/PeerTube/blob/develop/support/docker/production/Dockerfile.rockchip)
+You can build your own image with the following [Dockerfile](https://github.com/bro2020/peertube-dockerfile-rockchip/blob/master/Dockerfile) from repo `bro2020/peertube-dockerfile-rockchip`:
 
 # Running the docker image
 
