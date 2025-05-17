@@ -1,6 +1,6 @@
 # Hardware h264 encoding using rkmpp
 
-This plugin tries to enable hardware accelerated transcoding profiles using vaapi on linux. It should be considered experimental and tinkering will certainly be necessary to make this plugin work on your hardware.
+This plugin tries to enable hardware accelerated transcoding profiles using rkmpp on linux. It should be considered experimental and tinkering will certainly be necessary to make this plugin work on your hardware.
 
 
 For more information on rkmpp and hardware acceleration:
