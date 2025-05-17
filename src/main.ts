@@ -158,7 +158,11 @@ function buildInitOptions() {
             '-afbc rga'
         ]
     } else {
-        return []
+        return [
+            '-hwaccel rkmpp',
+            '-hwaccel_output_format drm_prime',
+            '-afbc rga'
+        ]
     }
 }
 
@@ -181,7 +185,7 @@ async function vodBuilder(params: EncoderOptionsBuilderParams) : Promise<Encoder
     let options : EncoderOptions = {
         scaleFilter: {
             // software decode requires specifying pixel format for hardware filter and upload it to GPU
-            name: pluginSettings.hardwareDecode ? 'scale_rkrga' : 'format=nv12,scale_rkrga'
+            name: pluginSettings.hardwareDecode ? 'scale_rkrga' : 'scale_rkrga=format=nv12:afbc=1'
         },
         inputOptions: shouldInitRkmpp ? buildInitOptions() : [],
         outputOptions: [
@@ -215,7 +219,7 @@ async function liveBuilder(params: EncoderOptionsBuilderParams) : Promise<Encode
     // You can also return a promise
     const options = {
       scaleFilter: {
-        name: pluginSettings.hardwareDecode ? 'scale_rkrga' : 'format=nv12,scale_rkrga'
+        name: pluginSettings.hardwareDecode ? 'scale_rkrga' : 'scale_rkrga=format=nv12:afbc=1'
       },
       inputOptions: shouldInitRkmpp ? buildInitOptions() : [],
       outputOptions: [
