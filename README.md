@@ -5,7 +5,6 @@ This plugin tries to enable hardware accelerated transcoding profiles using vaap
 
 For more information on rkmpp and hardware acceleration:
 
-- https://jellyfin.org/docs/general/administration/hardware-acceleration.html#enabling-hardware-acceleration
 - https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Comparison_tables
 - https://github.com/nyanmisaka/ffmpeg-rockchip/wiki
 
@@ -13,7 +12,8 @@ For more information on rkmpp and hardware acceleration:
 # Building a compatible docker image
 
 Official docker images do not ship with required libraries for hardware transcode.
-You can build your own image with the following Dockerfile from repo `bro2020/PeerTube`:
+You can build your own image with the following Dockerfile.rockchip from repo `bro2020/PeerTube`:
+
 [https://github.com/bro2020/PeerTube](https://github.com/bro2020/PeerTube/blob/develop/support/docker/production/Dockerfile.rockchip)
 
 # Running the docker image
