@@ -1,4 +1,4 @@
-# Hardware h264 encoding using rkmpp
+# Hardware h264 transcoding using rkmpp
 
 This plugin tries to enable hardware accelerated transcoding profiles using rkmpp on linux. It should be considered experimental and tinkering will certainly be necessary to make this plugin work on your hardware.
 
@@ -7,6 +7,11 @@ For more information on rkmpp and hardware acceleration:
 
 - https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Comparison_tables
 - https://github.com/nyanmisaka/ffmpeg-rockchip/wiki
+
+
+---
+> Live stream encoding is currently not working
+---
 
 
 # Building a compatible docker image
@@ -39,3 +44,7 @@ services:
       - /dev/rga:/dev/rga
       - /dev/mpp_service:/dev/mpp_service
 ```
+
+The plugin package is available in the `npmjs` repository.:
+
+https://www.npmjs.com/package/peertube-plugin-hardware-transcode-rkmpp
