@@ -159,9 +159,7 @@ function buildInitOptions() {
         ]
     } else {
         return [
-            '-hwaccel rkmpp',
-            '-hwaccel_output_format drm_prime',
-            '-afbc rga'
+            ''
         ]
     }
 }
@@ -190,9 +188,12 @@ async function vodBuilder(params: EncoderOptionsBuilderParams) : Promise<Encoder
         inputOptions: shouldInitRkmpp ? buildInitOptions() : [],
         outputOptions: [
             '-strict -2',
-            `-quality ${pluginSettings.quality}`,
+            `-profile:v${streamSuffix} high`,
+            `-g:v${streamSuffix} ${fps*2}`,
             `-b:v${streamSuffix} ${targetBitrate}`,
-            `-bufsize ${targetBitrate * 2}`
+            `-maxrate ${targetBitrate}`,
+            `-bufsize ${targetBitrate * 2}`,
+            '-rc_mode VBR'
         ]
     }
     logger.info(`EncoderOptions: ${JSON.stringify(options)}`)
@@ -224,13 +225,12 @@ async function liveBuilder(params: EncoderOptionsBuilderParams) : Promise<Encode
       inputOptions: shouldInitRkmpp ? buildInitOptions() : [],
       outputOptions: [
         '-strict -2',
-        `-quality ${pluginSettings.quality}`,
-        `-r:v${streamSuffix} ${fps}`,
         `-profile:v${streamSuffix} high`,
-        `-level:v${streamSuffix} 3.1`,
         `-g:v${streamSuffix} ${fps*2}`,
         `-b:v${streamSuffix} ${targetBitrate}`,
-        `-bufsize ${targetBitrate * 2}`
+        `-maxrate ${targetBitrate}`,
+        `-bufsize ${targetBitrate * 2}`,
+        '-rc_mode VBR'
       ]
     }
     logger.info(`EncoderOptions: ${JSON.stringify(options)}`)
