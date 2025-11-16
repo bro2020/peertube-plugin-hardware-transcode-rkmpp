@@ -189,7 +189,7 @@ async function vodBuilder(params: EncoderOptionsBuilderParams) : Promise<Encoder
             `-b:v${streamSuffix} ${targetBitrate}`,
             `-maxrate ${targetBitrate+1000000}`,
             `-minrate ${targetBitrate-3000000}`,
-            '-bufsize 3072M',
+            '-bufsize 3M',
             '-rc_mode VBR'
         ]
     }
@@ -227,7 +227,7 @@ async function liveBuilder(params: EncoderOptionsBuilderParams) : Promise<Encode
         `-b:v${streamSuffix} ${targetBitrate}`,
         `-maxrate ${targetBitrate+1000000}`,
         `-minrate ${targetBitrate-3000000}`,
-        '-bufsize 3072M',
+        '-bufsize 3M',
         '-rc_mode VBR'
       ]
     }
