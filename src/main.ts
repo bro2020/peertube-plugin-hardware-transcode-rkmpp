@@ -151,18 +151,13 @@ function printResolution(resolution : VideoResolution) : string {
 }
 
 function buildInitOptions() {
-    if (pluginSettings.hardwareDecode) {
-        return [
-            '-hwaccel rkmpp',
-            '-hwaccel_output_format drm_prime',
-            '-afbc rga',
-            '-rtbufsize 3G'
-        ]
-    } else {
-        return [
-            '-rtbufsize 3G'
-        ]
-    }
+    return [
+        '-hwaccel rkmpp',
+        '-hwaccel_output_format drm_prime',
+        '-afbc rga',
+        '-rtbufsize 2147.48M',
+        '-thread_queue_size 3072'
+    ]
 }
 
 async function vodBuilder(params: EncoderOptionsBuilderParams) : Promise<EncoderOptions> {
@@ -192,8 +187,9 @@ async function vodBuilder(params: EncoderOptionsBuilderParams) : Promise<Encoder
             `-profile:v${streamSuffix} high`,
             `-g:v${streamSuffix} ${fps*2}`,
             `-b:v${streamSuffix} ${targetBitrate}`,
-            `-maxrate ${targetBitrate}`,
-            '-bufsize 3G',
+            `-maxrate ${targetBitrate+1000000}`,
+            `-minrate ${targetBitrate-3000000}`,
+            '-bufsize 3072M',
             '-rc_mode VBR'
         ]
     }
@@ -229,8 +225,9 @@ async function liveBuilder(params: EncoderOptionsBuilderParams) : Promise<Encode
         `-profile:v${streamSuffix} high`,
         `-g:v${streamSuffix} ${fps*2}`,
         `-b:v${streamSuffix} ${targetBitrate}`,
-        `-maxrate ${targetBitrate}`,
-        '-bufsize 3G',
+        `-maxrate ${targetBitrate+1000000}`,
+        `-minrate ${targetBitrate-3000000}`,
+        '-bufsize 3072M',
         '-rc_mode VBR'
       ]
     }
