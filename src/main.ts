@@ -155,11 +155,12 @@ function buildInitOptions() {
         return [
             '-hwaccel rkmpp',
             '-hwaccel_output_format drm_prime',
-            '-afbc rga'
+            '-afbc rga',
+            '-rtbufsize 3G'
         ]
     } else {
         return [
-            ''
+            '-rtbufsize 3G'
         ]
     }
 }
@@ -192,7 +193,7 @@ async function vodBuilder(params: EncoderOptionsBuilderParams) : Promise<Encoder
             `-g:v${streamSuffix} ${fps*2}`,
             `-b:v${streamSuffix} ${targetBitrate}`,
             `-maxrate ${targetBitrate}`,
-            `-bufsize ${targetBitrate * 2}`,
+            '-bufsize 3G',
             '-rc_mode VBR'
         ]
     }
@@ -229,7 +230,7 @@ async function liveBuilder(params: EncoderOptionsBuilderParams) : Promise<Encode
         `-g:v${streamSuffix} ${fps*2}`,
         `-b:v${streamSuffix} ${targetBitrate}`,
         `-maxrate ${targetBitrate}`,
-        `-bufsize ${targetBitrate * 2}`,
+        '-bufsize 3G',
         '-rc_mode VBR'
       ]
     }
